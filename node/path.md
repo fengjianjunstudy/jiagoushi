@@ -45,7 +45,7 @@
 
 ```
     let fs = require('fs');
-    
+
     function pipe(source,target){
         let rs = fs.createReadStream(source,{highWaterMark:4});
         let ws = fs.createWriteStream(target,{highWaterMark:1});
@@ -61,6 +61,12 @@
         rs.on('end',function(chunk){
             ws.end('jieshu')
         })
+    }
+
+    function pipe(source,target){
+        let rs = fs.createReadStream(source);
+        let ws = fs.createWriteStream(targe);
+        rs.pipe(ws);
     }
 
 ```
