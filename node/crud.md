@@ -10,6 +10,8 @@
             let method = req.method;
             let id = query.id;
             res.setHeader('Content-Type','application/json;charset=utf8')
+            res.setHeader('Access-Control-Allow-Origin','*')
+            res.setHeader('Access-Control-Allow-methods','GET,POST,PUT,DELETE')
             switch(method){
                 case 'POST':
                     let arr =[];
