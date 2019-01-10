@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聊天室</title>
+</head>
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io()
+        socket.on('connect',function(){
+            console.log('链接成功')
+            socket.send('hello server')
+            
+        })
+        socket.on('message',function(msg){
+            console.log(msg)
+        })
+
+    </script>
+</body>
+</html>
