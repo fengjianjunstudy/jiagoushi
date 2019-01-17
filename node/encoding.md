@@ -17,3 +17,18 @@
     console.log(20.toString(8))
     console.log(20.toString(16))
 ```
+##### ASCII
+##### 如何把一个unicode转换成utf8
+```
+    // 万 4E07
+    function transfor(num){
+        let arr = ['110','10','10']
+        let str = num.toString(2);
+        arr[2] += str.substring(str.length-6)
+        arr[1] += str.substring(str.length-12,str.length-6)
+        arr[0] += str.substring(0,str.length-12).padStart(4,'0')
+
+        return arr.map((item)=>{return parseInt(item,2).toString(16)})
+    }
+    let r = transfor(0x4E07)
+```

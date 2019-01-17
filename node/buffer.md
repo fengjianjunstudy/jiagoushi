@@ -2,7 +2,7 @@
 -  字节 1k = 1024b = 1024*8bit
 - 一个汉字 3个字节
 ###### 创建方法：
-- 长度创建 Buffer.alloc(100) 耗性能  Buffer.allocUnsafe(100) 
+- 长度创建 Buffer.alloc(100,2) 耗性能  Buffer.allocUnsafe(100) 
 - 数组创建  Buffer.from([1,2,3])
 - 字符串创建 Buffer.from('冯建俊')
 
@@ -10,7 +10,8 @@
 - buffer.toString()
 
 ###### buffer 方法
-- fill
+- fill(值，开始索引，结束索引)
+- write(值,开始索引,长度,编码)
 - slice 截取、克隆 浅拷贝
 - copy
 ```
@@ -43,3 +44,6 @@
     var buffer = Buffer.from('冯')
     console.log(buffer.toString('base64'))
 ```
+##### string_decoder
+> 解决乱码
+> write的时候会判断是不是一个字符，如果是怎输出，如果不是则缓存在对象内部，等待下次write的时候会把前面缓存的字符加到第二次write的buffer上再进行判断
