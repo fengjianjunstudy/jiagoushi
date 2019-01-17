@@ -1,5 +1,6 @@
 const fs = require('fs');
 const BUFFER_SIZE = 3
+
 function copy(source,target){
     fs.open(source,'r',0666,function(err,readFd){
         if(err){
