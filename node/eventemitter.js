@@ -1,6 +1,7 @@
 let EventEmitter = require('events')
 let util = require('util')
 
+
 function Bell(){
     EventEmitter.call(this)
 }

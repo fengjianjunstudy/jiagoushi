@@ -10,7 +10,7 @@
 ```
 - nextTick
 > nextTick setImmediate 的区别
-> nextTick ： 把回调函数放在当前执行栈的尾部
+> nextTick ： 把回调函数放在微任务的队列中
 > setImmediate : 把回调函数放在任务队列的尾部
 ###### argv
 ###### pid
