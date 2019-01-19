@@ -41,4 +41,32 @@ function rmdir(path){
     })
 
 }
-rmdir('fs')
+// rmdir('fs')
+const path = require('path')
+function rmdirPromise(dir){
+    return new Promise(function(resolve,reject){
+        fs.stat(dir,(err,stats) => {
+            if(err){
+               return reject(err)
+            }
+            if(stats.isDirectory()){
+                fs.readdir(dir,(err,files)=>{
+                    if(err){
+                        return reject(err);
+                    }
+                    Promise.all(files.map((item)=>{
+                        return rmdirPromise(path.join(dir,item))
+                    })).then(()=>{
+                        console.log('dir',dir)
+                        fs.rmdir(dir,resolve);
+                    })
+                })
+            }else{
+                fs.unlink(dir,resolve)
+            }
+        })
+    })
+}
+rmdirPromise('fs').then(()=>{
+    console.log('删除成功')
+})
