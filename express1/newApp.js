@@ -12,8 +12,14 @@ app.use('/hello',function(req,res,next){
 app.get('/hello',function(req,res){
     res.end('hello')
 })
+//:占位符 匹配任意字符串 params
+app.get('/user/:name/:age',function(req,res){
+    let {name,age} = req.params;
+    console.log(name,age)
+    res.end(`name:${name},age:${age}`)
+})
 app.use(function(err,req,res,next){
-    console.log('错误中间件')
+    //console.log('错误中间件')
 })
 app.listen(8088,function(){
     console.log('服务器已经启动')
