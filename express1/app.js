@@ -1,4 +1,9 @@
 let express = require('express');
+let url = require('url')
+let path = require('path')
+let fs = require('fs')
+let mime = require('mime')
+let bodyParser = require('body-parser')
 
 //返回时http的监听函数
 // let app = express();
@@ -46,8 +51,31 @@ let express = require('express');
 
 // })
 
-
+function static(root,options){
+    return function (req,res,next){
+        let {pathname} = url.parse(req.url,true)
+        console.log(pathname)
+        let file = path.join(root,pathname);
+        console.log(file)
+        fs.stat(file,function(err,stats){
+            if(err){
+                console.log(err)
+                return next();
+            }else{
+                let contentType = mime.getType(pathname)
+                console.log(contentType)
+                res.setHeader('Content-Type',contentType)
+                fs.createReadStream(file).pipe(res)
+            }
+        })
+    }
+    
+}
 let app = express();
+app.use(static(path.join(__dirname,'/public')))
+app.use(bodyParser.json())
+app.use(bodyParser,urlencoded({extended:true}))
+
 app.get('/hello',function(req,res){
     res.end('hello')
 })
