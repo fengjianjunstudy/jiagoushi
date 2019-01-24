@@ -9,7 +9,8 @@ function after(num,fn){
 function eat(name){
     console.log(name+' eat')
 }
-let newFn = after(3,eat)
+let newFn = af
+ter(3,eat)
 newFn('xiaohei')
 newFn('xiaohua')
 newFn('xiaoming')
