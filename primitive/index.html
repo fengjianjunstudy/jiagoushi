@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Function.prototype.bind = function(){
+        //     return function(){
+        //         this.apply()
+        //     }
+        // }
+        // console.log('123')
+        // function fn(){
+        //     console.log(this)
+        // }
+        // let a = {
+        //     name:'xiaoming'
+        // }
+        // let b = {
+        //     name:'xiaohua'
+        // }
+        // // fn.bind(b).bind(a)();
+        // // let  c = Object.assign({},b)
+        // let c = {...b}
+        // c.name = 'hi'
+        // console.log(c,b)
+        /*****
+         * 忽略
+         * 1函数
+         * 2undifined
+         * 3循环引用
+         * 4Symbol
+         * 
+         */
+        // let s = Symbol();
+        // let d = {
+        //     name:'xiaoming',
+        //     info:{
+        //         addr:'123'
+        //     },
+        //     sayName(){
+        //         console.log(this.name)
+        //     },
+        //     un:undefined,
+        //     [s]:'symbol'
+        // }
+        // let e = JSON.parse(JSON.stringify(d))
+        // e.info.addr = 'abc'
+        // console.log(d,e)
+
+        /***
+         * 不能解决函数的问题
+         */
+        // function structuralClone(obj){
+        //     return new Promise((resolve,reject)=>{
+        //         const {port1,port2} = new MessageChannel();
+        //         port1.onmessage = function(env){
+        //             resolve(env.data)
+        //         }
+        //         port2.postMessage(obj)
+        //     })
+        // }
+        // let obj = {
+        //     a:1,
+        //     b:{
+        //         c:2,
+        //         d(){
+        //             console.log('d')
+        //         }
+        //     }
+        // }
+        // async function test(){
+        //     const clone = await structuralClone(obj);
+        //     clone.b.c = 3;
+        //     console.log(clone)
+        // }
+        // test();
+
+        /****
+         * 1判断是否是对象 不是 报错 
+         * 2 是对象 判断是否是数组 数组 [...] 对象 {...}
+         * 3 遍历每个属性 是：对象则递归 不是：直接将值赋给新对象 
+         */
+        function deepClone(obj){
+            function isObject(o){
+                return o != null && (typeof o == 'object' || typeof o == 'function')
+            }
+            if(!isObject(obj)){
+                throw new Error('费对象')
+            }
+            let isArray = Array.isArray(obj);
+            let newObj = {}
+            newObj = isArray?[...obj]:{...obj}
+            Reflect.ownKeys(newObj).forEach((key)=>{
+                newObj[key] = isObject(newObj[key])?deepClone(newObj[key]):newObj[key]
+            })
+            return newObj;
+        }
+        let obj = {
+            a:[1,2,3],
+            b:{
+                c:2,
+                d:3
+            }
+        }
+        let newObj = deepClone(obj)
+        newObj.b.c = 1;
+        console.log(obj)
+        console.log(newObj)
+
+</script>
+</body>
+</html>

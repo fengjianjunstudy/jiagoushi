@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //冒泡算法
+        function bubbleSort(arr){
+            let len = arr.length;
+            for(let i=0;i<len;i++){
+                for(let j = 0;j<len-1-i;j++){
+                    if(arr[j] > arr[j+1]){
+                        [arr[j],arr[j+1]] = [arr[j+1],arr[j]]
+                    }
+                }
+            }
+            return arr;
+        }
+        let s = [5,4,3,2,1]
+        //console.log(bubbleSort(s))
+        //选择算法
+        function selectSort(arr){
+            let len = arr.length;
+            let indexMin;
+            for(let i=0;i<len-1;i++){
+                indexMin = i; 
+                for(let j = i;j<len;j++){
+                    if(arr[j] < arr[indexMin]){
+                        indexMin = j;
+                    }
+                }
+                if(i != indexMin){
+                    [arr[i],arr[indexMin]] = [arr[indexMin],arr[i]]
+                }
+            }
+           
+            return arr ;
+        }
+        //console.log(selectSort(s));
+        //插入排序
+        function insertSort(arr){
+            let len = arr.length;
+            let temp ,j;
+            for(let i = 1;i<len;i++){
+                j = i;
+                temp = arr[i];
+                while(j>0&&arr[j-1]>temp){
+                    arr[j] = arr[j-1];
+                    j--;
+                }
+                arr[j] = temp;
+
+            }
+            return arr;
+        }
+        //console.log(insertSort(s))
+        //快速排序
+        function swap(arr,left,right){
+            [arr[left],arr[right]] = [arr[right],arr[left]]
+        }
+        function sort(array) {
+            quickSort(array, 0, array.length - 1);
+            return array;
+        }
+
+        function quickSort(array, left, right) {
+            if (left < right) {
+                swap(array,left , right)
+                // 随机取值，然后和末尾交换，这样做比固定取一个位置的复杂度略低
+                let l = part(array, left,right);
+                quickSort(array, left, l -1);
+                quickSort(array, l + 1, right);
+            }
+        }
+        function part(array, left, right) {
+            let mid = array[Math.floor((left+right)/2)]
+            let i = left;
+            let j = right;
+            while(i<=j){
+                while(array[i] < mid){
+                    i++;
+                }
+                while(array[j] > mid){
+                    j--;
+                }
+                if(i <= j){
+                    swap(array,i,j)
+                    i++;
+                    j--;
+                }
+            }
+            return i;
+        }
+        console.log(sort(s))
+        //二分查找
+        function binarySearch(arr,item){
+            let low = 0;
+            let high = arr.length -1;
+            let mid;
+            let index;
+            while(low <= high){
+                mid = Math.floor((low+high)/2)
+                if(item<arr[mid]){
+                    high = mid -1;
+                }else if(item >arr[mid]){
+                    low = mid +1;
+                }else{
+                    return mid;
+                }
+            }
+            return -1;
+        }
+        let arr = [1,2,3,4,5,6,7,8,9]
+        console.log(binarySearch(arr,6))
+        console.log(binarySearch(arr,10))
+    </script>
+</body>
+</html>
