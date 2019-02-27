@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //斐波那契数列 1,1,2,3,5
+        let fn = (function fn(n){
+            let _catch = {};
+            function f(n){
+            
+                if(n == 1 || n == 2){
+                    return 1;
+                }
+                if(_catch[n]){
+                    return _catch[n]
+                }
+                let prev = f(n-2);
+                let next = f(n-1);
+                _catch[n-1] = next;
+                _catch[n-2] = prev;
+                return prev + next;
+            }
+            return f;
+        })()
+        console.log(fn(5))
+        //斐波那契数列 方法二
+        function fn1(n){
+            let [a,b] = [0,1]
+            for(let i = 1;i<n;i++){
+                [a,b] = [b,a+b] 
+            }
+            return b
+        }
+        console.log(fn1(2))
+
+        //斐波那契数列 方法三
+        function fn2(n){
+            return Array(n-1).fill().reduce(([a,b],)=>{
+                return [b,a+b]
+            },[0,1])[1]
+        }
+        console.log(fn2(1))
+    </script>
+</body>
+</html>
