@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="height:1000px">
+        <input type="text" id="text">
+    </div>
+    
+    <script>
+        //节流
+        function throttle(callback,delay){
+            let lock = false;
+            let timer = null;
+            return (...args)=>{
+                if(lock){
+                    return;
+                }
+                lock = true;
+                callback(...args)
+                timer = setTimeout(()=>{
+                    lock = false;
+                },delay)
+            }
+        }
+        function callback(){
+            console.log(new Date())
+        }
+        let fn = throttle(callback,1000)
+        window.addEventListener('scroll',fn)
+
+        //防抖
+        function debounce(callback,delay){
+            let timer;
+            return (...args) =>{
+                clearTimeout(timer);
+                timer = setTimeout(()=>{
+                    callback(...args)
+                },delay)
+            }
+        }
+        function printText(){
+            console.log(document.querySelector('#text').value)
+        }
+        let fn1 = debounce(printText,1000)
+        document.querySelector('#text').addEventListener('input',fn1)
+    </script>
+</body>
+</html>

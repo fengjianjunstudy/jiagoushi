@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Node{
+            constructor(v,c){
+                this.value = v;
+                this.children = c || null;
+            }
+        }
+        let tree = new Node(1,[new Node(2),new Node(3,[new Node(4),new Node(5)]),new Node(6)])
+        function tree_transverse(tree,order){
+            if(order == 0){
+                console.log(tree.value);
+                tree.children && tree.children.forEach((node)=>{
+                    tree_transverse(node,order)
+                })
+            }else if(order == 2){
+                tree.children && tree.children.forEach((node)=>{
+                    tree_transverse(node,order)
+                })
+                console.log(tree.value)
+            }else{
+                
+            }
+            
+        }
+        tree_transverse(tree,1)
+    </script>
+</body>
+</html>
